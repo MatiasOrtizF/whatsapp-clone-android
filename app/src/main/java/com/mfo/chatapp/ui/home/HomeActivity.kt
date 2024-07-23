@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.mfo.chatapp.R
 import com.mfo.chatapp.databinding.ActivityMainBinding
 import com.mfo.chatapp.databinding.ActivitySignupBinding
+import com.mfo.chatapp.ui.chat.ChatActivity
 import com.mfo.chatapp.ui.login.LoginActivity
 import com.mfo.chatapp.ui.signup.SignUpActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,9 @@ class HomeActivity : AppCompatActivity() {
         binding.btnGoToLogin.setOnClickListener {
             handleGoToLogin()
         }
+        binding.btnGoToChat.setOnClickListener {
+            handleGoToChat()
+        }
     }
 
     private fun handleGoToSignUp() {
@@ -43,6 +47,12 @@ class HomeActivity : AppCompatActivity() {
 
     private fun handleGoToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun handleGoToChat() {
+        val intent = Intent(this, ChatActivity::class.java)
         startActivity(intent)
         finish()
     }

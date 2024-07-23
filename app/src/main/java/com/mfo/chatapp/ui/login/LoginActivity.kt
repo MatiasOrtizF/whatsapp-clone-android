@@ -1,14 +1,13 @@
 package com.mfo.chatapp.ui.login
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import com.mfo.chatapp.R
 import com.mfo.chatapp.databinding.ActivityLoginBinding
-import com.mfo.chatapp.databinding.ActivitySignupBinding
-import com.mfo.chatapp.ui.signup.SignUpViewModel
+import com.mfo.chatapp.ui.chat.ChatActivity
 import com.mfo.chatapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,11 +34,7 @@ class LoginActivity : AppCompatActivity() {
             when(state) {
                 is Resource.Success -> {
                     handleLoading(isLoading = false)
-                    Toast.makeText(
-                        this,
-                        "Login success",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    goToHome()
                 }
                 is Resource.Error -> {
                     handleLoading(isLoading = false)
@@ -84,5 +79,11 @@ class LoginActivity : AppCompatActivity() {
                 btnLogin.isVisible = true
             }
         }
+    }
+
+    private fun goToHome() {
+        val intent = Intent(this, ChatActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

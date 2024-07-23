@@ -2,6 +2,7 @@ package com.mfo.chatapp.ui.chat
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mfo.chatapp.domain.model.Message
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val sendMessageUseCase: SendMessageUseCase,
-    private val fetchMessageRealTimeUseCase: FetchMessageRealTimeUseCase
+    private val fetchMessageRealTimeUseCase: FetchMessageRealTimeUseCase,
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
     private val _messagesListState: MutableLiveData<Resource<List<Message>>> = MutableLiveData()
@@ -25,12 +27,21 @@ class ChatViewModel @Inject constructor(
         get() = _messagesListState
 
     private val _sendMessageState: MutableLiveData<Resource<Unit>> = MutableLiveData()
-    val sendMessageState: LiveData<Resource<List<Unit>>>
-        get() = sendMessageState
+    val sendMessageState: LiveData<Resource<Unit>>
+        get() = _sendMessageState
+
+    init {
+        val chatId = "1"
+
+        if(!chatId.isNullOrEmpty()) {
+            getMessages(chatId = chatId)
+        }
+    }
 
     private fun getMessages(chatId: String) {
         viewModelScope.launch {
-            fetchMessageRealTimeUseCase(chatId).onEach {
+            fetchMessageRealTimeUseCase("1").onEach {
+                println(it)
                 _messagesListState.value = it
             }.launchIn(viewModelScope)
         }
