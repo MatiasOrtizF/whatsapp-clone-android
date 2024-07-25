@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.auth.User
 import com.mfo.chatapp.domain.usecase.FirebaseSignUpUseCase
 import com.mfo.chatapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val signUpUseCase: FirebaseSignUpUseCase
+    private val signUpUseCase: FirebaseSignUpUseCase,
 ) : ViewModel() {
 
     private val _signUpState: MutableLiveData<Resource<Boolean>> = MutableLiveData()
@@ -23,7 +24,7 @@ class SignUpViewModel @Inject constructor(
 
     fun signUp(email: String, password: String) {
         viewModelScope.launch {
-            signUpUseCase(email, password).onEach {state ->
+            signUpUseCase(email, password).onEach { state ->
                 _signUpState.value = state
             }.launchIn(viewModelScope)
         }

@@ -1,9 +1,8 @@
-package com.mfo.chatapp.data.remote
+package com.mfo.chatapp.data.remote.repository
 
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.mfo.chatapp.data.remote.Constants.DEFAULT_NETWORK_ERROR
+import com.mfo.chatapp.data.remote.util.Constants.DEFAULT_NETWORK_ERROR
 import com.mfo.chatapp.domain.model.Message
 import com.mfo.chatapp.domain.repository.MessageRepository
 import com.mfo.chatapp.utils.Resource

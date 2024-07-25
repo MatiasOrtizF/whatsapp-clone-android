@@ -51,7 +51,7 @@ class ChatActivity : AppCompatActivity() {
         chatViewModel.messagesListState.observe(this) { state ->
             when(state) {
                 is Resource.Success -> {
-                    handleMessages(messages = state.date)
+                    handleMessages(messages = state.data)
                 }
                 is Resource.Error -> {
                     Toast.makeText(

@@ -1,6 +1,6 @@
 package com.mfo.chatapp.domain.usecase
 
-import com.mfo.chatapp.data.remote.Constants.DEFAULT_NETWORK_ERROR
+import com.mfo.chatapp.data.remote.util.Constants.DEFAULT_NETWORK_ERROR
 import com.mfo.chatapp.domain.model.Message
 import com.mfo.chatapp.domain.repository.MessageRepository
 import com.mfo.chatapp.utils.Resource

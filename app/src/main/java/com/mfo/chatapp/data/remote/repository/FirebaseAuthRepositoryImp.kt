@@ -1,4 +1,4 @@
-package com.mfo.chatapp.data.remote
+package com.mfo.chatapp.data.remote.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.mfo.chatapp.domain.repository.AuthRepository
@@ -9,28 +9,27 @@ class FirebaseAuthRepositoryImp @Inject constructor(
     private val firebaseAuth: FirebaseAuth
 ) : AuthRepository {
 
-    override suspend fun login(email: String, password: String): Boolean {
+    override suspend fun login(email: String, password: String): String {
         return try {
-            var isSuccessful: Boolean = true
+            var userUID = ""
             firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener { isSuccessful = true }
-                .addOnFailureListener { isSuccessful = false }
+                .addOnSuccessListener { userUID = it.user?.uid?: "" }
                 .await()
-            isSuccessful
+            userUID
         } catch (e: Exception) {
-            false
+            ""
         }
     }
 
-    override suspend fun signUp(email: String, password: String): Boolean {
+    override suspend fun signUp(email: String, password: String): String {
         return try {
-            var isSuccessful: Boolean = true
+            var userUID = ""
             firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { isSuccessful = it.isSuccessful }
+                .addOnSuccessListener { userUID = it.user?.uid?: "" }
                 .await()
-            isSuccessful
+            userUID
         } catch (e: Exception) {
-            false
+            ""
         }
     }
 }

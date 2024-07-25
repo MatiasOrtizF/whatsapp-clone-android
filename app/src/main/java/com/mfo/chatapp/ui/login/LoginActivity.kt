@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
             when(state) {
                 is Resource.Success -> {
                     handleLoading(isLoading = false)
+                    //loginViewModel.saveUserSelection("1")
                     goToHome()
                 }
                 is Resource.Error -> {

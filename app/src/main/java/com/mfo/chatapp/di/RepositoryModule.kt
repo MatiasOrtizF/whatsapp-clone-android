@@ -1,9 +1,12 @@
 package com.mfo.chatapp.di
 
-import com.mfo.chatapp.data.remote.FirebaseAuthRepositoryImp
-import com.mfo.chatapp.data.remote.FirebaseMessagesRepositoryImpl
+import com.mfo.chatapp.data.local.UserRepositoryImpl
+import com.mfo.chatapp.data.remote.repository.FirebaseAuthRepositoryImp
+import com.mfo.chatapp.data.remote.repository.FirebaseMessagesRepositoryImpl
+import com.mfo.chatapp.data.remote.repository.FirebaseUserRepositoryImpl
 import com.mfo.chatapp.domain.repository.AuthRepository
 import com.mfo.chatapp.domain.repository.MessageRepository
+import com.mfo.chatapp.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,4 +21,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindMessagesRepository(messagesRepository: FirebaseMessagesRepositoryImpl): MessageRepository
+
+    @Binds
+    abstract fun bindUserRepository(firebaseUserRepositoryImpl: FirebaseUserRepositoryImpl): UserRepository
 }
