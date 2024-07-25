@@ -1,6 +1,5 @@
 package com.mfo.chatapp.di
 
-import com.mfo.chatapp.data.local.UserRepositoryImpl
 import com.mfo.chatapp.data.remote.repository.FirebaseAuthRepositoryImp
 import com.mfo.chatapp.data.remote.repository.FirebaseMessagesRepositoryImpl
 import com.mfo.chatapp.data.remote.repository.FirebaseUserRepositoryImpl

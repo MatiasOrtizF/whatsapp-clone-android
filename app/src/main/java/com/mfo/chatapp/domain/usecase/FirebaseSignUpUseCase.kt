@@ -16,8 +16,8 @@ class FirebaseSignUpUseCase @Inject constructor(
     suspend operator fun invoke(email: String, password: String): Flow<Resource<Boolean>> = flow {
         emit(Resource.Loading)
         val userUID = authRepository.signUp(email, password)
+        println("este es el usuario = " + userUID)
         if (userUID.isNotEmpty()) {
-
             userRepository.createUser(
                 User(
                     email = email,
