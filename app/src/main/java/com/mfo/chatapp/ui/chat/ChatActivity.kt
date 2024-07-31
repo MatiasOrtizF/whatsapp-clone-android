@@ -75,7 +75,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun initListeners() {
-        binding.sendMessage.setOnClickListener {
+        binding.ibSend.setOnClickListener {
             handlerSendMessage()
         }
     }

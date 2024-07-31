@@ -1,5 +1,6 @@
 package com.mfo.chatapp.ui.signup
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.mfo.chatapp.R
 import com.mfo.chatapp.databinding.ActivitySignupBinding
+import com.mfo.chatapp.ui.login.LoginActivity
 import com.mfo.chatapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,14 +60,28 @@ class SignUpActivity : AppCompatActivity() {
             btnRegister.setOnClickListener {
                 handleSignUp()
             }
+            btnGoToLogin.setOnClickListener {
+                handleGoToLogin()
+            }
         }
     }
 
     private fun handleSignUp() {
         val email = binding.etEmail.text.toString()
-        val password = binding.etPassword.text.toString()
+        val password1 = binding.etPassword1.text.toString()
+        val password2 = binding.etPassword2.text.toString()
 
-        signUpViewModel.signUp(email, password)
+        if(password1.trim() == password2.trim()) {
+            if(email.trim().isNotEmpty()) {
+                signUpViewModel.signUp(email, password1)
+            }
+        } else {
+            Toast.makeText(
+                this,
+                "las contraseñas no coinciden",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun handleLoading(isLoading: Boolean) {
@@ -73,14 +89,22 @@ class SignUpActivity : AppCompatActivity() {
             if(isLoading) {
                 pbSignUp.isVisible = true
                 etEmail.isVisible = false
-                etPassword.isVisible = false
+                etPassword1.isVisible = false
+                etPassword2.isVisible = false
                 btnRegister.isVisible = false
             } else {
                 pbSignUp.isVisible = false
                 etEmail.isVisible = true
-                etPassword.isVisible = true
+                etPassword1.isVisible = true
+                etPassword2.isVisible = false
                 btnRegister.isVisible = true
             }
         }
+    }
+
+    private fun handleGoToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

@@ -3,6 +3,7 @@ package com.mfo.chatapp.data.remote.repository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.toObject
+import com.mfo.chatapp.data.remote.util.Constants
 import com.mfo.chatapp.data.remote.util.Constants.USERS_COLLECTION
 import com.mfo.chatapp.domain.model.User
 import com.mfo.chatapp.domain.repository.UserRepository
@@ -34,6 +35,7 @@ class FirebaseUserRepositoryImpl @Inject constructor(
                 .get()
                 .addOnSuccessListener {
                     loggedUser = it.toObject(User::class.java)!!
+                    Constants.USER_ID_PREF = loggedUser.uid
                 }
                 .await()
             loggedUser
